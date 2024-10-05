@@ -16,17 +16,12 @@
 		"url": "https://github.com/ladit/astro-blog-zozo/issues"
 	},
 	"type": "module",
-	"engines": {
-		"bun": ">=1.0.30"
-	},
 	"scripts": {
 		"dev": "astro dev",
 		"check": "astro check",
-		"build": "astro check && bunx @biomejs/biome check --apply . && astro build",
+    "build": "astro build",
 		"preview": "astro preview",
-		"preview:wrangler": "wrangler pages dev ./dist",
-		"astro": "astro",
-		"lint": "bunx @biomejs/biome check --apply ."
+		"astro": "astro"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "^4.2.1",
@@ -61,7 +56,6 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.5.5",
 		"@biomejs/biome": "1.7.3",
-		"@types/bun": "^1.0.7",
 		"@types/react": "^18.2.66",
 		"globals": "^14.0.0",
 		"typescript": "^5.3.3"

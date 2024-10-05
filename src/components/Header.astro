@@ -1,7 +1,6 @@
 ---
-import fs from 'node:fs/promises';
 import { Icon } from 'astro-icon/components';
-import { Hide, SiteDescription, SiteTitle, Socials } from '~/config';
+import { Hide,   Socials } from '~/config';
 import Nav from './Nav.astro';
 import ThemeToggler from './ThemeToggler.astro';
 
@@ -10,7 +9,6 @@ interface Props {
 }
 const { currentNav } = Astro.props;
 
-const customLogo = (await fs.stat('./src/assets/logo.svg')).isFile();
 
 const socialConfig: Record<string, Record<string, string>> = {
 	github: { icon: 'ri:github-fill' },
