@@ -1,0 +1,70 @@
+---
+import ScaffoldLayout from '~/layouts/ScaffoldLayout.astro';
+import { getPosts } from '~/utils/collection';
+
+const tagsCount = new Map<string, number>();
+const posts = await getPosts(false, 'desc');
+for (const post of posts) {
+	for (const tag of post.data.tags ?? []) {
+		tagsCount.set(tag, (tagsCount.get(tag) ?? 0) + 1);
+	}
+}
+const getBackgroundColor = (tag: string) => {
+    const colors: Record<string, string> = {
+        docker: 'bg-blue-700',
+        python: 'bg-blue-800',
+        learning: 'bg-yellow-500',
+        linux: 'bg-green-700',
+        devops: 'bg-purple-600',
+        go: 'bg-teal-600',
+        java: 'bg-red-700',
+        security: 'bg-orange-500',
+        web: 'bg-indigo-600',
+        fullstack: 'bg-pink-600',
+        frontend: 'bg-cyan-600',
+        backend: 'bg-gray-600',
+        hosting: 'bg-pink-800',
+        database: 'bg-amber-500',
+        mysql: 'bg-blue-700',
+        postgresql: 'bg-purple-800',
+        ai: 'bg-green-600',
+        chatgpt: 'bg-indigo-700',
+        seo: 'bg-yellow-600',
+        'mobile development': 'bg-teal-500',
+        virtualization: 'bg-teal-800',
+        aws: 'bg-orange-600',
+        azure: 'bg-blue-400',
+        saas: 'bg-purple-500',
+        'self hosting': 'bg-green-500',
+        university: 'bg-sky-800',
+        'leet code': 'bg-pink-400',
+        algorithms: 'bg-blue-800',
+        'data structures': 'bg-indigo-800',
+        projects: 'bg-gray-500',
+        'open source': 'bg-purple-600',
+        privacy: 'bg-red-600',
+        vpn: 'bg-orange-700',
+        rust: 'bg-orange-600',
+        default: 'bg-gray-400',
+    };
+    return colors[tag.toLowerCase()] || colors.default;
+};
+
+
+---
+
+<ScaffoldLayout title="Tags" description="Post tags" currentNav="Tags">
+	<h1 class="mb-8 text-4xl font-extrabold text-white">Tags</h1>
+	<div class="flex flex-wrap items-center justify-center gap-6">
+		{
+			[...tagsCount.entries()].map(([tag, count]) => (
+				<div class={`${getBackgroundColor(tag)} rounded-full text-white px-4 py-2 hover:ring-2 hover:ring-blue-300 hover:blur-[1px] capitalize`}>
+					<a class="text-xs" href={`/tags/${tag}/1`} aria-label={`More posts of tag ${tag}`}>
+						{tag}
+						<span class="relative -top-2 text-sm text-white">{count}</span>
+					</a>
+				</div>
+			))
+		}
+	</div>
+</ScaffoldLayout>
